@@ -1,60 +1,79 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
+    <v-app-bar app fixed clipped-left>
+      <v-toolbar-title class="headline text-uppercase">
+        <span class="font-weight-light">LAMA</span>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn href="https://github.com/NicolasDeleplace/training-vuejs" target="_blank" text>
+        view on github
+        <v-icon class="ml-2">mdi-github-circle</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-content>
+
+    <v-navigation-drawer clipped app permanent>
+      <v-list dense rounded>
+        <v-list-item
+                v-for="item in items"
+                :key="item.title"
+                :to="item.link"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-snackbar v-model="snackbar" :color="snack.color" top>
+      {{ snack.text }}
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import { EventBus } from './eventBus'
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
   data: () => ({
-    //
+    items: [
+      {
+        icon: 'mdi-home-outline',
+        title: 'Accueil',
+        link: { name: 'home' }
+      },
+      {
+        icon: 'mdi-flask-empty-outline',
+        title: 'Labo',
+        link: { name: 'lab' }
+      },
+      {
+        icon: 'mdi-silo',
+        title: 'Ferme à Lama',
+        link: { name: 'farm' }
+      }
+    ],
+    snackbar: false,
+    snack: {
+      color: 'primary',
+      text: ''
+    }
   }),
+  created() {
+    EventBus.$on('show-snack', data => {
+      this.snack.text = data.message
+      this.snack.color = data.type
+      this.snackbar = true
+    })
+  }
 };
 </script>
