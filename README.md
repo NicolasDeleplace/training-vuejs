@@ -1,4 +1,4 @@
-# training-vuejs
+# test
 
 ## Project setup
 ```
