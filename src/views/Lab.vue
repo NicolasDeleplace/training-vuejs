@@ -45,7 +45,7 @@
             </v-row>
           </v-card>
         </v-col>
-        <v-col cols="4" v-if="lama.type === 'lama-cute'">
+        <v-col cols="4" v-if="lama.type === 'lama-cute' || lama.type === 'lama-unicorn'">
           <lama-cute-options :options.sync="lama.options"></lama-cute-options>
         </v-col>
         <v-col cols="4" v-else>
@@ -72,9 +72,11 @@
   import LamaGirly from "../components/Lama/LamaGirly";
   import LamaRegular from "../components/Lama/LamaRegular";
   import LamaCuteOptions from "../components/Lama/LamaCuteOptions";
+  import LamaUnicorn from "../components/Lama/LamaUnicorn";
+
   export default {
     name: 'lab',
-    components: {LamaCuteOptions, LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute},
+    components: {LamaCuteOptions, LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute, LamaUnicorn},
     computed:{
       options(){
         return this.types.find(t => t.component === this.lama.type).options
@@ -128,7 +130,23 @@
               direction: 'top',
               colors:[
                  '#E45434',
-                 '#52e449',
+                 '#52E449'
+              ]
+            }
+          }
+        },
+        {
+          name: 'Lama Unicorn',
+          component: 'lama-unicorn',
+          options:{
+            mode:'color',
+            image: 'https://www.numerama.com/content/uploads/2019/05/trou-noir-espace-univers-astronomie.jpg',
+            color: '52e449',
+            gradient: {
+              direction: 'top',
+              colors:[
+                '#E45434',
+                '#52E449'
               ]
             }
           }

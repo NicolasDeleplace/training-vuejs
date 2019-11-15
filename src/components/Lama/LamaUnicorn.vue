@@ -2,7 +2,7 @@
     <div class="text-center" id="wrapper">
         <v-img
                 class="mx-auto"
-                src="../../assets/lama_cute.png"
+                src="../../assets/lama_unicorn.png"
                 :style="getStyle()"
                 @load="loaded = true"
                 aspect-ratio="1"
@@ -16,7 +16,7 @@
 <script>
     import pngLama from "../../mixins/pngLama";
     export default {
-        name: "LamaCute",
+        name: "LamaUnicorn",
         mixins:[pngLama]
     }
 </script>
