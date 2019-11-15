@@ -17,8 +17,8 @@ export default new Vuex.Store({
     addLama(state, lama){
       state.lamas.push(lama)
     },
-    removeLama(state, id){
-      state.lamas = state.lamas.filter(l => l.id !== id)
+    removeLama(state, lama){
+      state.lamas = state.lamas.filter(l => l.id !== lama.id)
     },
     updateLama(state, lama){
       const index = state.lamas.findIndex(l => l.id === lama.id)
@@ -58,7 +58,7 @@ export default new Vuex.Store({
     removeLama({commit}, lama){
       commit('removeLama', lama)
       try {
-        axios.put('/lamas/' + lama.id, lama)
+        axios.delete('/lamas/' + lama.id)
       } catch (e) {
         commit('addLama', lama)
         throw e
