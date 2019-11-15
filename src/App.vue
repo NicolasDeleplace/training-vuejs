@@ -1,6 +1,13 @@
 <template>
   <v-app>
     <v-app-bar app fixed clipped-left>
+        <v-img
+          :src="require('./assets/logo.png')"
+          class="my-3"
+          contain
+          height="60"
+          max-width="60"
+        ></v-img>
       <v-toolbar-title class="headline text-uppercase">
         <span class="font-weight-light">LAMA</span>
       </v-toolbar-title>
@@ -13,6 +20,19 @@
 
     <v-content>
       <router-view></router-view>
+      <v-footer
+              absolute
+              class="font-weight-medium"
+      >
+        <v-col
+                class="text-center"
+                cols="12"
+        >
+          <span>
+            Made with <v-icon>mdi-heart</v-icon> & <v-icon>mdi-pizza</v-icon> by Nico & Nico
+          </span>
+        </v-col>
+      </v-footer>
     </v-content>
 
     <v-navigation-drawer clipped app permanent>
