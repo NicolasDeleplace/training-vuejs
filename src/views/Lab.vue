@@ -31,7 +31,7 @@
           </v-card>
         </v-col>
         <v-col cols="4" v-if="lama.type === 'lama-cute'">
-          cute
+          <lama-cute-options :options.sync="lama.options"></lama-cute-options>
         </v-col>
         <v-col cols="4" v-else>
           <v-row v-for="(option, i) in lama.options" :key="option+'_'+i" >
@@ -51,15 +51,17 @@
   import LamaChic from "../components/Lama/LamaChic";
   import LamaGirly from "../components/Lama/LamaGirly";
   import LamaRegular from "../components/Lama/LamaRegular";
+  import LamaCuteOptions from "../components/Lama/LamaCuteOptions";
   export default {
     name: 'lab',
-    components: {LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute},
+    components: {LamaCuteOptions, LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute},
     computed:{
       options(){
         return this.types.find(t => t.component === this.lama.type).options
       }
     },
     data: () => ({
+      tab: null,
       lama:{
         name: '',
         age: 0,
@@ -97,7 +99,19 @@
         },
         {
           name: 'Lama Cute',
-          component: 'lama-cute'
+          component: 'lama-cute',
+          options:{
+            mode:'color',
+            image: 'https://www.numerama.com/content/uploads/2019/05/trou-noir-espace-univers-astronomie.jpg',
+            color: '52e449',
+            gradient: {
+              direction: 'top',
+              colors:[
+                 '#E45434',
+                 '#52e449',
+              ]
+            }
+          }
         },
         {
           name: 'Lama Louche',
@@ -167,9 +181,6 @@
         this.lama.type = type.component
         this.lama.options = type.options
       },
-      pickColor(color, name){
-        this.lama.options[name] = color
-      }
     }
   }
 </script>

@@ -23,23 +23,19 @@
     methods:{
       getStyle(){
         if(this.loaded) {
-          for (const [option, value] of Object.entries(this.options)) {
-            if (value) {
-              let gradient = ''
-              switch (option) {
-                case 'image':
-                  return `background: url('${value}') no-repeat center; background-size: cover;`
-                case 'color':
-                  return `background-color: ${value};`
-                case 'gradient':
-                  gradient = `background-image: linear-gradient(to ${value.direction}`
-                  for (const color of value.colors) {
-                    gradient += `, ${color}`
-                  }
-                  gradient += ');'
-                  return gradient
+          let gradient = ''
+          switch (this.options.mode) {
+            case 'image':
+              return `background: url('${this.options.image}') no-repeat center; background-size: cover;`
+            case 'color':
+              return `background-color: ${this.options.color};`
+            case 'gradient':
+              gradient = `background-image: linear-gradient(to ${this.options.gradient.direction}`
+              for (const color of this.options.gradient.colors) {
+                gradient += `, ${color}`
               }
-            }
+              gradient += ');'
+              return gradient
           }
         }
       }
