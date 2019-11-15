@@ -8,7 +8,7 @@
                 aspect-ratio="1"
                 max-height="280px"
                 max-width="268px"
-                transition=""
+                :transition="false"
         ></v-img>
     </div>
 </template>

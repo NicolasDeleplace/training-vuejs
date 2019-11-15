@@ -66,7 +66,10 @@
 <script>
   export default {
     name: "LamaCuteOptions",
-    props: ['options']
+    props: ['options'],
+    data:()=>({
+      tab: null,
+    })
   }
 </script>
 
