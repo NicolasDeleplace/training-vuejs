@@ -5,8 +5,8 @@
                 src="../../assets/lama_cute.png"
                 :style="{backgroundColor: color}"
                 aspect-ratio="1"
-                max-height="270px"
-                max-width="270px"
+                max-height="280px"
+                max-width="268px"
         ></v-img>
     </div>
 </template>
