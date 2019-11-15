@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pb-12">
     <v-row>
       <v-col>
         <span class="grey--text font-italic">labo à lama</span>
@@ -7,44 +7,38 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-color-picker v-model="lama.color"></v-color-picker>
-      </v-col>
-      <v-col>
         <v-select
           :items="types"
-          v-model="lama.type"
           label="Type de lama"
           item-text="name"
-          item-value="component"
+          return-object
+          @change="selectOptions"
         ></v-select>
-        <v-row>
-          <v-col v-for="(option, name, index) in options" :key="option+'_'+index">
-            <div class="text-center">
-              <v-menu top offset-y :close-on-click="false" :close-on-content-click="false">
-                <template v-slot:activator="{ on }">
-                  <v-btn :color="options[name]" v-on="on">
-                    {{ name.toUpperCase() }}
-                    <v-icon class="ml-2">mdi-format-color-fill</v-icon>
-                  </v-btn>
-                </template>
-                <v-color-picker v-model="options[name]" />
-              </v-menu>
-            </div>
-          </v-col>
-        </v-row>
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
-        <v-card class="mx-auto">
+      <v-col cols="8">
+        <v-card class="mx-auto fill-height">
           <v-row>
-            <v-col class="text-center">
+            <v-col class="text-center" >
               <keep-alive>
-                  <component :is="lama.type" :color="lama.color" :options="options"></component>
+                <component :is="lama.type" :options="lama.options"></component>
               </keep-alive>
             </v-col>
           </v-row>
         </v-card>
+      </v-col>
+      <v-col cols="4">
+        <v-row v-for="(option, name, index) in options" :key="option+'_'+index" >
+          <v-col>
+            <v-color-picker
+              :value="lama.options[name]"
+              hide-canvas
+              hide-inputs
+              @input="pickColor($event, name)"
+              />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -59,19 +53,25 @@ import LamaRegular from "../components/Lama/LamaRegular";
 export default {
   name: 'lab',
   components: {LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute},
-  computed: {
-    options() {
-      return this.types.find(x => x.component === this.lama.type).options;
+  computed:{
+    options(){
+      return this.types.find(t => t.component === this.lama.type).options
     }
   },
   data: () => ({
     lama:{
-      color: '#ffffff',
       name: '',
       age: 0,
       height:0,
       weight:0,
-      type:'lama-drug'
+      type:'lama-drug',
+      options: {
+        body: '#95C11F',
+        ears: '#3AAA35',
+        mouth: '#ff7861',
+        eyes: '#E94E1B',
+        pupil: '#DEDC00'
+      },
     },
     types:[
       {
@@ -95,7 +95,7 @@ export default {
         options: {
           body: '#95C11F',
           ears: '#3AAA35',
-          mouth: '#000',
+          mouth: '#ff7861',
           eyes: '#E94E1B',
           pupil: '#DEDC00'
         },
@@ -118,6 +118,15 @@ export default {
         component: 'lama-regular'
       },
     ],
-  })
+  }),
+  methods:{
+    selectOptions(type){
+      this.lama.type = type.component
+      this.lama.options = type.options
+    },
+    pickColor(color, name){
+      this.lama.options[name] = color
+    }
+  }
 }
 </script>
