@@ -36,6 +36,14 @@ export default new Vuex.Store({
         throw e
       }
     },
+    async addLama({commit}, lama) {
+      try {
+        const response = await axios.post('/lamas/', lama)
+        commit('addLama', response.data)
+      } catch(e) {
+        throw e
+      }
+    },
     async updateLama({commit, getters}, lama){
       const oldLama = {...getters.lama(lama.id)}
       commit('updateLama', lama)

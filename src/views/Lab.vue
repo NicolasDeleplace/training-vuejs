@@ -14,10 +14,25 @@
                 return-object
                 @change="selectOptions"
         ></v-select>
+        <v-text-field outlined placeholder="Nom de votre lama" v-model="lama.name"></v-text-field>
+        {{lama.height}}
+        <v-slider
+                v-model="lama.height"
+                min="0"
+                max="200"
+                prepend-icon="mdi-ruler"
+        ></v-slider>
+        {{lama.weight}}
+        <v-slider
+                v-model="lama.weight"
+                min="0"
+                max="200"
+                prepend-icon="mdi-weight-kilogram"
+        ></v-slider>
+        <v-text-field prepend-icon="mdi-cake-variant" type="number" label="Âge" v-model="lama.age"></v-text-field>
       </v-col>
     </v-row>
     <div  v-if="lama.type">
-
       <v-row>
         <v-col cols="8">
           <v-card class="mx-auto fill-height">
@@ -40,6 +55,11 @@
             </v-col>
           </v-row>
         </v-col>
+    <v-row v-if="lama.type" justify="end" align="center">
+      <v-col cols="12" >
+        <v-btn @click="addLama">Créer le lama</v-btn>
+      </v-col>
+    </v-row>
       </v-row>
     </div>
   </v-container>
@@ -65,35 +85,35 @@
       lama:{
         name: '',
         age: 0,
-        height:0,
-        weight:0,
-        type:'',
+        height: 0,
+        weight: 0,
+        type: '',
         options: {},
       },
-      types:[
+      types: [
         {
           name: 'Lama Chic',
           component: 'lama-chic',
           options: [
             {
               name: 'body',
-              color : '#95C11F',
+              color: '#95C11F',
             },
             {
               name: 'ears',
-              color : '#3AAA35',
+              color: '#3AAA35',
             },
             {
               name: 'mouth',
-              color : '#ff7861',
+              color: '#ff7861',
             },
             {
               name: 'eyes',
-              color : '#E94E1B',
+              color: '#E94E1B',
             },
             {
               name: 'scarf',
-              color : '#E94E1B',
+              color: '#E94E1B',
             },
           ]
         },
@@ -119,23 +139,23 @@
           options: [
             {
               name: 'body',
-              color : '#95C11F',
+              color: '#95C11F',
             },
             {
               name: 'ears',
-              color : '#3AAA35',
+              color: '#3AAA35',
             },
             {
               name: 'mouth',
-              color : '#ff7861',
+              color: '#ff7861',
             },
             {
               name: 'eyes',
-              color : '#E94E1B',
+              color: '#E94E1B',
             },
             {
               name: 'pupil',
-              color : '#DEDC00',
+              color: '#DEDC00',
             }
           ],
           menu: false
@@ -146,27 +166,27 @@
           options: [
             {
               name: 'body',
-              color : '#95C11F',
+              color: '#95C11F',
             },
             {
               name: 'ears',
-              color : '#3AAA35',
+              color: '#3AAA35',
             },
             {
               name: 'tail',
-              color : '#ff7861',
+              color: '#ff7861',
             },
             {
               name: 'eyes',
-              color : '#4cb2e9',
+              color: '#4cb2e9',
             },
             {
               name: 'head',
-              color : '#42e964',
+              color: '#42e964',
             },
             {
               name: 'legs',
-              color : '#95C11F',
+              color: '#95C11F',
             },
           ]
         },
@@ -176,11 +196,14 @@
         },
       ],
     }),
-    methods:{
-      selectOptions(type){
+    methods: {
+      selectOptions(type) {
         this.lama.type = type.component
         this.lama.options = type.options
       },
+      addLama() {
+        this.$store.dispatch('addLama', this.lama);
+      }
     }
   }
 </script>

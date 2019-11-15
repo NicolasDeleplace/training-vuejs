@@ -21,6 +21,7 @@
     <v-content>
       <router-view></router-view>
       <v-footer
+              style="bottom:-61px"
               absolute
               class="font-weight-medium"
       >
