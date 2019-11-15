@@ -12,6 +12,7 @@
                 label="Type de lama"
                 item-text="name"
                 return-object
+                v-model="selectedType"
                 @change="selectOptions"
         ></v-select>
       </v-col>
@@ -64,8 +65,9 @@
           </v-row>
         </v-col>
     <v-row v-if="lama.type" justify="end" align="center">
-      <v-col cols="12" >
-        <v-btn @click="addLama">Créer le lama</v-btn>
+      <v-col cols="12" class="text-center">
+        <v-btn @click="updateLama" v-if="lama.id" color="primary"><v-icon class="mr-2">mdi-knife</v-icon> Lancer l'operation chirugicale de {{lama.name}}</v-btn>
+        <v-btn @click="addLama" v-else color="primary"><v-icon class="mr-2">mdi-egg</v-icon> Donner naissance à {{lama.name !== '' ? lama.name : ' ce lama sans nom'}}</v-btn>
       </v-col>
     </v-row>
       </v-row>
@@ -91,6 +93,7 @@
       }
     },
     data: () => ({
+      selectedType: '',
       lama:{
         name: '',
         age: 0,
@@ -131,7 +134,7 @@
           component: 'lama-cute',
           options:{
             mode:'color',
-            image: 'https://www.numerama.com/content/uploads/2019/05/trou-noir-espace-univers-astronomie.jpg',
+            image: 'https://i.ytimg.com/vi/tsjd7xdgfjA/maxresdefault.jpg',
             color: '52e449',
             gradient: {
               direction: 'top',
@@ -147,7 +150,7 @@
           component: 'lama-unicorn',
           options:{
             mode:'color',
-            image: 'https://www.numerama.com/content/uploads/2019/05/trou-noir-espace-univers-astronomie.jpg',
+            image: 'https://i.ytimg.com/vi/tsjd7xdgfjA/maxresdefault.jpg',
             color: '52e449',
             gradient: {
               direction: 'top',
@@ -229,7 +232,22 @@
       async addLama() {
         await this.$store.dispatch('addLama', this.lama);
         this.$router.push({name:'farm'})
+      },
+      async updateLama(){
+        await this.$store.dispatch('updateLama', this.lama)
+        this.$router.push({name:'farm'})
       }
+    },
+    created(){
+      const lama = this.$store.getters.lama
+      if(lama){
+        this.selectedType = this.types.find(t => t.component === lama.type)
+        this.lama = lama
+      }
+    },
+    beforeRouteLeave(to, from, next){
+      this.$store.commit('selectLama', null)
+      next()
     }
   }
 </script>

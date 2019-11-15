@@ -18,7 +18,15 @@
         <v-card>
           <v-container class="mt-0 pt-0">
             <v-row class="indigo darken-2 ">
-              <v-col cols="8" offset="2" class="text-center white--text">
+              <v-col cols="2" class="text-right">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon color="indigo darken-4" v-on="on" @click="edit(lama)"><v-icon>mdi-flask</v-icon></v-btn>
+                  </template>
+                  <span>Apporter des modifications génétique à {{lama.name}}</span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="8" class="text-center white--text">
                 <span class="title">{{lama.name}}</span>
               </v-col>
               <v-col cols="2" class="text-right">
@@ -100,6 +108,10 @@ export default {
         message: lama.name + ' est mort dans d\'attroces souffrances par votre faute...',
         type: 'info'
       })
+    },
+    edit(lama){
+      this.$store.commit('selectLama', lama)
+      this.$router.push({name: 'lab'})
     }
   }
 }

@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lamas: []
+    lamas: [],
+    selectedLama: null,
   },
   mutations: {
     setLamas(state, lamas){
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     removeLama(state, lama){
       state.lamas = state.lamas.filter(l => l.id !== lama.id)
+    },
+    selectLama(state, lama){
+      state.selectedLama = lama
     },
     updateLama(state, lama){
       const index = state.lamas.findIndex(l => l.id === lama.id)
@@ -44,14 +48,13 @@ export default new Vuex.Store({
         throw e
       }
     },
-    async updateLama({commit, getters}, lama){
-      const oldLama = {...getters.lama(lama.id)}
+    async updateLama({commit, state}, lama){
       commit('updateLama', lama)
       try {
-        const response = await axios.put('/lamas/' + lama.id, lama)
+        const response = await axios.patch('/lamas/' + lama.id, lama)
         commit('updateLama', response.data)
       } catch (e) {
-        commit('updateLama', oldLama)
+        commit('updateLama', state.selectedLama)
         throw e
       }
     },
@@ -66,7 +69,7 @@ export default new Vuex.Store({
     },
   },
   getters:{
-    lama: state => id => state.lamas.find(l => l.id === id),
+    lama: state => state.selectedLama,
     lamas: state => state.lamas
   }
 })
