@@ -1,7 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app fixed clipped-left>
-        <v-img
+    <v-app-bar app fixed clipped-left >
+      <v-app-bar-nav-icon v-if="$vuetify.breakpoint.mdAndDown" @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-img
           :src="require('./assets/logo.png')"
           class="my-3"
           contain
@@ -36,7 +38,7 @@
       </v-footer>
     </v-content>
 
-    <v-navigation-drawer clipped app permanent>
+    <v-navigation-drawer clipped app v-model="drawer">
       <v-list dense rounded>
         <v-list-item
                 v-for="item in items"
@@ -66,6 +68,7 @@ import { EventBus } from './eventBus'
 export default {
   name: 'App',
   data: () => ({
+    drawer: false,
     items: [
       {
         icon: 'mdi-home-outline',
@@ -81,7 +84,12 @@ export default {
         icon: 'mdi-silo',
         title: 'Ferme à Lama',
         link: { name: 'farm' }
-      }
+      },
+      {
+        icon: 'mdi-crown',
+        title: 'Trophés',
+        link: { name: 'trophies' }
+      },
     ],
     snackbar: false,
     snack: {
@@ -90,6 +98,9 @@ export default {
     }
   }),
   created() {
+    if(this.$vuetify.breakpoint.lgAndUp){
+      this.drawer = true
+    }
     EventBus.$on('show-snack', data => {
       this.snack.text = data.message
       this.snack.color = data.type

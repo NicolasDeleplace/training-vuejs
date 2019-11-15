@@ -28,6 +28,7 @@
             <h1 class="display-4">
               <v-icon size="70">mdi-flask-empty-outline</v-icon>
             </h1>
+            <span class="title font-weight-light indigo--text text--darken-4">creation de lama disponible</span>
           </v-card-text>
           <v-card-actions>
             <v-btn text dark :to="{name: 'lab'}" class="mx-auto">
@@ -43,6 +44,7 @@
             <h1 class="display-4">
               {{lamas.length}}
             </h1>
+            <span class="title font-weight-light indigo--text text--darken-4">lamas dans la ferme</span>
           </v-card-text>
           <v-card-actions>
             <v-btn text dark :to="{name: 'farm'}" class="mx-auto">
