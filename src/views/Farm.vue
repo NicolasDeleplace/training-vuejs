@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-12">
+  <v-container>
     <v-row>
       <v-col>
         <span class="display-2">Vos lamas</span>
@@ -17,9 +17,17 @@
       <v-col v-else cols="4" v-for="(lama, index) in lamas" :key="`lama_${index}`">
         <v-card>
           <v-container class="mt-0 pt-0">
-            <v-row>
-              <v-col class="text-center indigo darken-2 white--text">
+            <v-row class="indigo darken-2 ">
+              <v-col cols="8" offset="2" class="text-center white--text">
                 <span class="title">{{lama.name}}</span>
+              </v-col>
+              <v-col cols="2" class="text-right">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon color="indigo darken-4" v-on="on" @click="kill(lama)"><v-icon>mdi-skull</v-icon></v-btn>
+                  </template>
+                  <span>Empoisoner {{lama.name}}</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
@@ -65,6 +73,7 @@ import LamaDrug from "../components/Lama/LamaDrug";
 import LamaChic from "../components/Lama/LamaChic";
 import LamaGirly from "../components/Lama/LamaGirly";
 import LamaRegular from "../components/Lama/LamaRegular";
+import {EventBus} from "../eventBus";
 
 export default {
   name: 'farm',
@@ -84,6 +93,13 @@ export default {
     async fetchLamas(){
       await this.$store.dispatch('fetchLamas')
       this.loading = false
+    },
+    async kill(lama){
+      await this.$store.dispatch('removeLama', lama)
+      EventBus.$emit('show-snack', {
+        message: lama.name + ' est mort dans d\'attroces souffrances par votre faute...',
+        type: 'info'
+      })
     }
   }
 }

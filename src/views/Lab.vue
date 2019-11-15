@@ -1,12 +1,12 @@
 <template>
-  <v-container class="pb-12">
+  <v-container>
     <v-row>
       <v-col>
-        <span class="grey--text font-italic">labo à lama</span>
+        <h1 class="display">Labo à lama</h1>
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col cols="6">
         <v-select
                 :items="types"
                 label="Type de lama"
@@ -14,14 +14,20 @@
                 return-object
                 @change="selectOptions"
         ></v-select>
+      </v-col>
+      <v-col cols="6">
         <v-text-field outlined placeholder="Nom de votre lama" v-model="lama.name"></v-text-field>
-        {{lama.height}}
+      </v-col>
+      <v-col cols="4">
+        {{lama.height}}cm
         <v-slider
                 v-model="lama.height"
                 min="0"
                 max="200"
                 prepend-icon="mdi-ruler"
         ></v-slider>
+      </v-col>
+      <v-col cols="4">
         {{lama.weight}}
         <v-slider
                 v-model="lama.weight"
@@ -29,6 +35,8 @@
                 max="200"
                 prepend-icon="mdi-weight-kilogram"
         ></v-slider>
+      </v-col>
+      <v-col cols="4">
         <v-text-field prepend-icon="mdi-cake-variant" type="number" label="Âge" v-model="lama.age"></v-text-field>
       </v-col>
     </v-row>
@@ -83,7 +91,6 @@
       }
     },
     data: () => ({
-      tab: null,
       lama:{
         name: '',
         age: 0,
@@ -219,8 +226,9 @@
         this.lama.type = type.component
         this.lama.options = type.options
       },
-      addLama() {
-        this.$store.dispatch('addLama', this.lama);
+      async addLama() {
+        await this.$store.dispatch('addLama', this.lama);
+        this.$router.push({name:'farm'})
       }
     }
   }
