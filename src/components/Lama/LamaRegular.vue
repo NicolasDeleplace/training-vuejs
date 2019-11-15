@@ -215,14 +215,12 @@
 <script>
     export default {
         name: 'lama-regular',
-
-        data: () => ({
-
-        }),
-
-        methods: {
-
+      props: ['options'],
+      methods:{
+        getColor(name){
+          return this.options.find(o => o.name === name).color
         }
+      }
     };
 </script>
 
