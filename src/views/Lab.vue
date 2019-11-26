@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-form v-model="valid">
     <v-row>
       <v-col>
         <h1 class="display">Labo à lama</h1>
@@ -14,10 +15,16 @@
                 return-object
                 v-model="selectedType"
                 @change="selectOptions"
+                :rules="rules.type"
         ></v-select>
       </v-col>
       <v-col cols="6">
-        <v-text-field outlined placeholder="Nom de votre lama" v-model="lama.name"></v-text-field>
+        <v-text-field
+                outlined
+                placeholder="Nom de votre lama"
+                v-model="lama.name"
+                :rules="rules.name"
+        ></v-text-field>
       </v-col>
       <v-col cols="4">
         {{lama.height}}cm
@@ -26,6 +33,7 @@
                 min="0"
                 max="200"
                 prepend-icon="mdi-ruler"
+                :rules="rules.height"
         ></v-slider>
       </v-col>
       <v-col cols="4">
@@ -35,6 +43,7 @@
                 min="0"
                 max="200"
                 prepend-icon="mdi-weight-kilogram"
+                :rules="rules.weight"
         ></v-slider>
       </v-col>
       <v-col cols="4">
@@ -42,57 +51,36 @@
       </v-col>
     </v-row>
     <div  v-if="lama.type">
-      <v-row>
-        <v-col cols="8">
-          <v-card class="mx-auto fill-height">
-            <v-row>
-              <v-col class="text-center" >
-                <keep-alive>
-                  <component :is="lama.type" :options="lama.options"></component>
-                </keep-alive>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="4" v-if="lama.type === 'lama-cute' || lama.type === 'lama-unicorn'">
-          <lama-cute-options :options.sync="lama.options"></lama-cute-options>
-        </v-col>
-        <v-col cols="4" v-else>
-          <v-row v-for="(option, i) in lama.options" :key="option+'_'+i" >
-            <v-col>
-              <v-color-picker v-model="option.color" hide-canvas hide-inputs></v-color-picker>
-            </v-col>
-          </v-row>
-        </v-col>
-    <v-row v-if="lama.type" justify="end" align="center">
+      <lama-color-customizer :lama.sync="lama"></lama-color-customizer>
+    </div>
+    <v-row justify="end" align="center">
       <v-col cols="12" class="text-center">
-        <v-btn @click="updateLama" v-if="lama.id" color="primary"><v-icon class="mr-2">mdi-knife</v-icon> Lancer l'operation chirugicale de {{lama.name}}</v-btn>
-        <v-btn @click="addLama" v-else color="primary"><v-icon class="mr-2">mdi-egg</v-icon> Donner naissance à {{lama.name !== '' ? lama.name : ' ce lama sans nom'}}</v-btn>
+        <v-btn :disabled="!valid" @click="updateLama" v-if="lama.id" color="primary"><v-icon class="mr-2">mdi-knife</v-icon> Lancer l'operation chirugicale de {{lama.name}}</v-btn>
+        <v-btn :disabled="!valid" @click="addLama" v-else color="primary">
+          <v-icon class="mr-2">mdi-egg</v-icon>
+          <span v-if="lama.name">Donner naissance à {{lama.name}}</span>
+          <span v-else>Le lama est pas fini ... </span>
+        </v-btn>
       </v-col>
     </v-row>
-      </v-row>
-    </div>
+    </v-form>
   </v-container>
 </template>
 
 <script>
-  import LamaCute from "../components/Lama/LamaCute";
-  import LamaDrug from "../components/Lama/LamaDrug";
-  import LamaChic from "../components/Lama/LamaChic";
-  import LamaGirly from "../components/Lama/LamaGirly";
-  import LamaRegular from "../components/Lama/LamaRegular";
-  import LamaCuteOptions from "../components/Lama/LamaCuteOptions";
-  import LamaUnicorn from "../components/Lama/LamaUnicorn";
+  import LamaTypes from "../utils/LamaTypes";
+  import LamaColorCustomizer from "../components/Lab/LamaColorCustomizer";
 
   export default {
     name: 'lab',
-    components: {LamaCuteOptions, LamaRegular, LamaGirly, LamaChic, LamaDrug, LamaCute, LamaUnicorn},
+    components: {LamaColorCustomizer},
     computed:{
       options(){
         return this.types.find(t => t.component === this.lama.type).options
       }
     },
     data: () => ({
+      valid: false,
       selectedType: '',
       lama:{
         name: '',
@@ -102,127 +90,21 @@
         type: '',
         options: {},
       },
-      types: [
-        {
-          name: 'Lama Chic',
-          component: 'lama-chic',
-          options: [
-            {
-              name: 'body',
-              color: '#95C11F',
-            },
-            {
-              name: 'ears',
-              color: '#3AAA35',
-            },
-            {
-              name: 'mouth',
-              color: '#ff7861',
-            },
-            {
-              name: 'eyes',
-              color: '#E94E1B',
-            },
-            {
-              name: 'scarf',
-              color: '#E94E1B',
-            },
-          ]
-        },
-        {
-          name: 'Lama Cute',
-          component: 'lama-cute',
-          options:{
-            mode:'color',
-            image: 'https://i.ytimg.com/vi/tsjd7xdgfjA/maxresdefault.jpg',
-            color: '52e449',
-            gradient: {
-              direction: 'top',
-              colors:[
-                 '#E45434',
-                 '#52E449'
-              ]
-            }
-          }
-        },
-        {
-          name: 'Lama Unicorn',
-          component: 'lama-unicorn',
-          options:{
-            mode:'color',
-            image: 'https://i.ytimg.com/vi/tsjd7xdgfjA/maxresdefault.jpg',
-            color: '52e449',
-            gradient: {
-              direction: 'top',
-              colors:[
-                '#E45434',
-                '#52E449'
-              ]
-            }
-          }
-        },
-        {
-          name: 'Lama Louche',
-          component: 'lama-drug',
-          options: [
-            {
-              name: 'body',
-              color: '#95C11F',
-            },
-            {
-              name: 'ears',
-              color: '#3AAA35',
-            },
-            {
-              name: 'mouth',
-              color: '#ff7861',
-            },
-            {
-              name: 'eyes',
-              color: '#E94E1B',
-            },
-            {
-              name: 'pupil',
-              color: '#DEDC00',
-            }
-          ],
-          menu: false
-        },
-        {
-          name: 'Lama Girly',
-          component: 'lama-girly',
-          options: [
-            {
-              name: 'body',
-              color: '#95C11F',
-            },
-            {
-              name: 'ears',
-              color: '#3AAA35',
-            },
-            {
-              name: 'tail',
-              color: '#ff7861',
-            },
-            {
-              name: 'eyes',
-              color: '#4cb2e9',
-            },
-            {
-              name: 'head',
-              color: '#42e964',
-            },
-            {
-              name: 'legs',
-              color: '#95C11F',
-            },
-          ]
-        },
-        {
-          name: 'Lama Normal',
-          component: 'lama-regular'
-        },
-      ],
+      types: [],
+      rules:{
+        type: [
+          v => !!v || 'Veuillez choisir un type de lama'
+        ],
+        name: [
+          v => !!v || 'Votre lama doit avoir un nom'
+        ],
+        weight: [
+          v => v > 0 || 'Votre lama est trop leger'
+        ],
+        height: [
+          v => v > 0 || 'Votre lama est trop petit'
+        ]
+      }
     }),
     methods: {
       selectOptions(type) {
@@ -239,6 +121,7 @@
       }
     },
     created(){
+      this.types = LamaTypes
       const lama = this.$store.getters.lama
       if(lama){
         this.selectedType = this.types.find(t => t.component === lama.type)

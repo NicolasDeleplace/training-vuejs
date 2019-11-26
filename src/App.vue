@@ -23,14 +23,11 @@
     <v-content>
       <router-view></router-view>
       <v-footer
-              style="bottom:-61px"
+              :style="getBottomPosition()"
               absolute
               class="font-weight-medium"
       >
-        <v-col
-                class="text-center"
-                cols="12"
-        >
+        <v-col class="text-center" cols="12">
           <span>
             Made with <v-icon>mdi-heart</v-icon> & <v-icon>mdi-pizza</v-icon> by Nico & Nico
           </span>
@@ -106,6 +103,11 @@ export default {
       this.snack.color = data.type
       this.snackbar = true
     })
+  },
+  methods:{
+    getBottomPosition() {
+      return document.body.clientHeight > window.innerHeight ? 'bottom:-61px' : ''
+    }
   }
 };
 </script>
