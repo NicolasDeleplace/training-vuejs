@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Lab from '../views/Lab.vue'
 import Farm from '../views/Farm.vue'
 import Trophies from '../views/Trophies.vue'
 
@@ -22,11 +21,6 @@ const routes = [
     path: '/farm',
     name: 'farm',
     component: Farm
-  },
-  {
-    path: '/lab',
-    name: 'lab',
-    component: Lab
   },
   {
     path: '/trophies',
