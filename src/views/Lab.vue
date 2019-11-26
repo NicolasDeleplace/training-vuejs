@@ -8,7 +8,10 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-alert color="blue" text border="left">Le but de cet exercice est d'effectué un "two way binding" entre les différents champs du formulaire et le recapitulatif situé sous le formulaire</v-alert>
+          <v-alert color="blue" text border="left">
+            Le but de cet exercice est d'effectué un "two way binding" entre les différents champs du formulaire et le recapitulatif situé sous le formulaire.<br/>
+            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> permet de lier un champs du formulaire avec une variable du component.
+          </v-alert>
         </v-col>
       </v-row>
       <v-row>
