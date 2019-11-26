@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form v-model="valid">
+    <v-form>
       <v-row>
         <v-col>
           <h1 class="display">Labo à lama</h1>
@@ -9,16 +9,21 @@
       <v-row>
         <v-col>
           <v-alert color="blue" text border="left">
-            Le but de cet exercice est d'effectué un "two way binding" entre les différents champs du formulaire et le recapitulatif situé sous le formulaire.<br/>
-            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> permet de lier un champs du formulaire avec une variable du component.
+            Le but de cet exercice est d'effectué une validation dynamique du formulaire de creation du lama. Les objectifs sont : <br/>
+            - Lier les différentes variables définissant notre lama aux champs du formulaire<br/>
+            - Attribuer des règles aux champs du formulaire (nom !== ' ', taille age et poids > 0)<br/>
+            - Lier l'état du formulaire à une variable"<br/>
+            - Désactiver le bouton quand le formulaire n'est pas valide<br/>
+            Tips: l'attribut <span class="font-weight-bold">"rules"</span> permet de definir un tableau de règles que le champs devra suivre afin d'être jugé valide.
+            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> sur un "v-form" permet de lier une variable de type boolean à l'état du formulaire.
           </v-alert>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="6">
           <v-text-field
+                  label="Nom"
                   outlined
-                  placeholder="Nom de votre lama"
           ></v-text-field>
         </v-col>
         <v-col cols="6">
@@ -47,32 +52,8 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
-          <v-card>
-            <v-card-title>
-              Récapitulatif de votre lama :
-            </v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col cols="12">
-                  <span class="font-weight-bold">Nom :</span>
-                  <span class="ml-2 blue--text">Nom du lama</span>
-                </v-col>
-                <v-col cols="12">
-                  <span class="font-weight-bold">Age : </span>
-                  <span class="ml-2 blue--text">Age du lama</span>
-                </v-col>
-                <v-col cols="12">
-                  <span class="font-weight-bold">Taille :</span>
-                  <span class="ml-2 blue--text">Taille du lama</span>
-                </v-col>
-                <v-col cols="12">
-                  <span class="font-weight-bold">Poids :</span>
-                  <span class="ml-2 blue--text">Poids du lama</span>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+        <v-col class="text-center">
+          <v-btn color="blue" dark @click="verifValidation">Verifier</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -80,10 +61,11 @@
 </template>
 
 <script>
+  import {EventBus} from "../eventBus";
+
   export default {
     name: 'lab',
     data: () => ({
-      valid: false,
       lama:{
         name: '',
         age: 0,
@@ -92,6 +74,23 @@
       },
     }),
     methods: {
+      verifValidation(){
+        if(this.lama.name !== ''
+          && this.lama.height > 0
+          && this.lama.weight > 0
+          && this.lama.age > 0
+        ){
+          EventBus.$emit('show-snack', {
+            message: 'Votre validation à l\'air de fonctionner :O',
+            type: 'info'
+          })
+        }else{
+          EventBus.$emit('show-snack', {
+            message: 'Hum... ça m\'a pas l\'air encore parfait !',
+            type: 'error'
+          })
+        }
+      }
     },
   }
 </script>
