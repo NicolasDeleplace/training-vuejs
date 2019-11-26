@@ -23,7 +23,6 @@
     <v-content>
       <router-view></router-view>
       <v-footer
-              :style="getBottomPosition()"
               absolute
               class="font-weight-medium"
       >
@@ -92,7 +91,7 @@ export default {
     snack: {
       color: 'primary',
       text: ''
-    }
+    },
   }),
   created() {
     if(this.$vuetify.breakpoint.lgAndUp){
@@ -104,10 +103,5 @@ export default {
       this.snackbar = true
     })
   },
-  methods:{
-    getBottomPosition() {
-      return document.body.clientHeight > window.innerHeight ? 'bottom:-61px' : ''
-    }
-  }
 };
 </script>

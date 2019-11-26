@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mb-12">
     <v-row>
       <v-col>
         <span class="display-2">Vos lamas</span>
