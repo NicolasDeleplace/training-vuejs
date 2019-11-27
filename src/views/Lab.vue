@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mb-12">
     <v-form v-model="valid">
       <v-row>
         <v-col>
