@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Lab from '../views/Lab.vue'
 import Farm from '../views/Farm.vue'
-import Trophies from '../views/Trophies.vue'
 
 Vue.use(VueRouter)
 
@@ -27,12 +26,7 @@ const routes = [
     path: '/lab',
     name: 'lab',
     component: Lab
-  },
-  {
-    path: '/trophies',
-    name: 'trophies',
-    component: Trophies
-  },
+  }
 ]
 
 const router = new VueRouter({

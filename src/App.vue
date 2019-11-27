@@ -80,12 +80,7 @@ export default {
         icon: 'mdi-silo',
         title: 'Ferme à Lama',
         link: { name: 'farm' }
-      },
-      {
-        icon: 'mdi-crown',
-        title: 'Trophées',
-        link: { name: 'trophies' }
-      },
+      }
     ],
     snackbar: false,
     snack: {

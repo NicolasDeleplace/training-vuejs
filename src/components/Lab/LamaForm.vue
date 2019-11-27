@@ -1,4 +1,21 @@
 <template>
+  <v-container class="mb-12">
+      <v-row>
+        <v-col>
+          <v-alert color="blue" text border="left">
+            <p class="mb-0">Le but de cet exercice est la manipulation des stores avec Vuex. Les objectifs sont : </p>
+            <p class="mb-0">- Créer l'action dans le store lama.js pour ajouter un lama</p>
+            <p class="mb-0 ml-6 font-weight-light font-italic">- axios.post('/lamas', monLama)</p>
+            <p class="mb-0">- Créer la mutation dans le store lama.js pour changer l'état du lama</p>
+            <p class="mb-0">- Créer la méthode d'ajout de lama dans composant en utilisant le store</p>
+            <p class="mb-0">- Lier la méthode d'ajout de lama au bouton de création</p>
+            <p class="mb-0">- Attribuer ces règles aux champs du formulaire : </p>
+            <p class="mb-0">Tips: la directive <span class="font-weight-bold">"v-on:click"</span> 
+            ou <span class="font-weight-bold">"@click"</span> 
+            sur un composant permet de lui ajouter un évènement sur le clic.</p>
+          </v-alert>
+        </v-col>
+      </v-row>
     <v-form v-model="valid">
         <v-row>
             <v-col>
@@ -54,15 +71,15 @@
         </div>
         <v-row justify="end" align="center">
             <v-col cols="12" class="text-center">
-                <v-btn :disabled="!valid" @click="updateLama" v-if="lama.id" color="primary"><v-icon class="mr-2">mdi-knife</v-icon> Lancer l'operation chirugicale de {{lama.name}}</v-btn>
-                <v-btn :disabled="!valid" @click="addLama" v-else color="primary">
+                <v-btn :disabled="!valid" color="primary">
                     <v-icon class="mr-2">mdi-egg</v-icon>
                     <span v-if="lama.name">Donner naissance à {{lama.name}}</span>
-                    <span v-else>Le lama est pas fini ... </span>
+                    <span v-else>Le lama n'est pas fini ... </span>
                 </v-btn>
             </v-col>
         </v-row>
     </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -113,21 +130,11 @@
         this.lama.options = type.options
       },
       async addLama() {
-        await this.$store.dispatch('addLama', this.lama);
-        this.$router.push({name:'farm'})
-      },
-      async updateLama(){
-        await this.$store.dispatch('updateLama', this.lama)
-        this.$router.push({name:'farm'})
+        //TODO
       }
     },
     created(){
       this.types = LamaTypes
-      const lama = this.$store.getters.lama
-      if(lama){
-        this.selectedType = this.types.find(t => t.component === lama.type)
-        this.lama = lama
-      }
     },
     beforeRouteLeave(to, from, next){
       this.$store.commit('selectLama', null)
