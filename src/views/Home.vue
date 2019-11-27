@@ -15,11 +15,11 @@
           <v-alert color="blue" text border="left">
             <h1 class="display-1 mb-3">Hello !</h1>
             <span class="subtitle-1">
-              Votre première mission va être de créer le labo de lama ! <br/>
-              Pour ce fair vous devez : <br/>
-              - Créer un component Vue dans le dossier "views" <br/>
-              - Ajouter une route et importer votre nouvelle vue dans le fichier "router/index.js" <br/>
-              - Importer notre composant <code>lama-form</code> (que nous avons déjà créé aavec amour)<br/>
+              Votre première mission sera être de créer le labo de lama ! <br/>
+              Vous devez : <br/>
+              - Créer un nouveau component Vuejs dans le dossier "views" <br/>
+              - Ajouter une route (nommée "lab") et importer votre nouvelle vue dans le fichier "router/index.js" <br/>
+              - Importer notre composant <code>lama-form</code> (que nous avons créé avec amour)<br/>
             </span>
           </v-alert>
       </v-col>
