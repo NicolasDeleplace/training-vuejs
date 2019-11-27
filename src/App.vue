@@ -84,7 +84,7 @@ export default {
       },
       {
         icon: 'mdi-crown',
-        title: 'Trophés',
+        title: 'Trophées',
         link: { name: 'trophies' }
       },
     ],
