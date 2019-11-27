@@ -9,8 +9,12 @@
       <v-row>
         <v-col>
           <v-alert color="blue" text border="left">
-            Le but de cet exercice est d'effectué un "two way binding" entre les différents champs du formulaire et le recapitulatif situé sous le formulaire.<br/>
-            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> permet de lier un champs du formulaire avec une variable du component.
+            Le but de cet exercice est d'effectué un "two way binding" entre les différents champs du formulaire et le récapitulatif situé en dessous.<br/>
+            Vous devrez : <br/>
+            - Déclarer vos variables dans la partie "data" du composant <span class="font-weight-bold">"views/lab.vue"</span><br/>
+            - Lier les variables aux champs du formulaire<br/>
+            - Afficher la valeur des variables dans la partie "récapitulatif"<br/>
+            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> permet de lier un champs du formulaire avec une variable du composant.
           </v-alert>
         </v-col>
       </v-row>
@@ -30,7 +34,6 @@
           ></v-text-field>
         </v-col>
         <v-col cols="6">
-          {{lama.height}}cm
           <v-slider
                   min="0"
                   max="200"
@@ -38,7 +41,6 @@
           ></v-slider>
         </v-col>
         <v-col cols="6">
-          {{lama.weight}}
           <v-slider
                   min="0"
                   max="200"
@@ -85,10 +87,7 @@
     data: () => ({
       valid: false,
       lama:{
-        name: '',
-        age: 0,
-        height: 0,
-        weight: 0,
+        // todo déclarer les variables : name, age, weight et height
       },
     }),
     methods: {

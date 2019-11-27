@@ -10,49 +10,17 @@
         ></v-img>
       </v-col>
     </v-row>
-    <v-row class="text-center">
-      <v-col cols="8" class="mx-auto">
-        <v-card outlined>
-          <v-card-text>
-            <h1 class="display-1 mb-3">Hello !</h1>
-            <span class="subtitle-1">Bienvenue dans votre élevage de lama. Vous pouvez dès à présent donner la vie à de nouveaux lamas ou allez rendre visite
-              à vos magnifique lamas.</span>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
     <v-row>
-      <v-col cols="4" offset="2">
-        <v-card color="indigo">
-          <v-card-text class="text-center">
-            <h1 class="display-4">
-              <v-icon size="70">mdi-flask-empty-outline</v-icon>
-            </h1>
-            <span class="title font-weight-light indigo--text text--darken-4">creation de lama disponible</span>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn text dark :to="{name: 'lab'}" class="mx-auto">
-              <v-icon class="mr-2">mdi-flask-empty-outline</v-icon>
-              Aller au labo
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col cols="4">
-        <v-card color="indigo">
-          <v-card-text class="text-center">
-            <h1 class="display-4">
-              {{lamas.length}}
-            </h1>
-            <span class="title font-weight-light indigo--text text--darken-4">lamas dans la ferme</span>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn text dark :to="{name: 'farm'}" class="mx-auto">
-              <v-icon class="mr-2">mdi-silo</v-icon>
-              Aller à la ferme
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col cols="8" class="mx-auto">
+       <v-alert text color="blue" border="left">
+         <h1 class="display-1">Exercice 2 : Two way binding</h1>
+         <p>Le but de cet exercice est de réaliser un "binding bidirectionnel" dans un composant Vuejs</p>
+         <v-row>
+           <v-col class="text-center">
+            <v-btn :to="{name: 'lab'}" outlined color="blue">Go</v-btn>
+           </v-col>
+         </v-row>
+       </v-alert>
       </v-col>
     </v-row>
   </v-container>
