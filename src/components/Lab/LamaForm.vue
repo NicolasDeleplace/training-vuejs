@@ -52,16 +52,6 @@
         <div  v-if="lama.type">
             <lama-color-customizer :lama.sync="lama"></lama-color-customizer>
         </div>
-        <v-row justify="end" align="center">
-            <v-col cols="12" class="text-center">
-                <v-btn :disabled="!valid" @click="updateLama" v-if="lama.id" color="primary"><v-icon class="mr-2">mdi-knife</v-icon> Lancer l'operation chirugicale de {{lama.name}}</v-btn>
-                <v-btn :disabled="!valid" @click="addLama" v-else color="primary">
-                    <v-icon class="mr-2">mdi-egg</v-icon>
-                    <span v-if="lama.name">Donner naissance à {{lama.name}}</span>
-                    <span v-else>Le lama est pas fini ... </span>
-                </v-btn>
-            </v-col>
-        </v-row>
     </v-form>
 </template>
 

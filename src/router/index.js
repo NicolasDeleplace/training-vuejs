@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Farm from '../views/Farm.vue'
-import Trophies from '../views/Trophies.vue'
 
 Vue.use(VueRouter)
 
@@ -21,12 +20,7 @@ const routes = [
     path: '/farm',
     name: 'farm',
     component: Farm
-  },
-  {
-    path: '/trophies',
-    name: 'trophies',
-    component: Trophies
-  },
+  }
 ]
 
 const router = new VueRouter({
