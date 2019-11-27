@@ -13,8 +13,8 @@
     <v-row>
       <v-col cols="8" class="mx-auto">
         <v-alert color="blue" border="left" text>
-          <h1 class="display">Exercice : Verification formulaire</h1>
-          <p>Cet exercice à pour but d'effectuer une validation sur les champs d'un formulaire !</p>
+          <h1 class="display">Exercice 3 : Verification formulaire</h1>
+          <p class="subtitle-1">Cet exercice à pour but d'effectuer une validation sur les champs d'un formulaire !</p>
           <v-btn outlined color="blue" :to="{name: 'lab'}">Go</v-btn>
         </v-alert>
       </v-col>
