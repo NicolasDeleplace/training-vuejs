@@ -13,7 +13,7 @@
     <v-row class="text-center">
       <v-col cols="8" class="mx-auto">
         <v-alert color="blue" text border="left">
-            <h1 class="display-1 mb-3">Manipulation du store</h1>
+            <h1 class="display-1 mb-3">Exercice 4 : Manipulation du store</h1>
             <p class="subtitle-1">Le but de cet exercice est d'utiliser le store afin de créer un lama et 
               l'ajouter à sa ferme.</p>
             <v-btn color="blue" outlined :to="{name: 'lab'}">Go</v-btn>
