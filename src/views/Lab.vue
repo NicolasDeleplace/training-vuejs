@@ -9,13 +9,17 @@
       <v-row>
         <v-col>
           <v-alert color="blue" text border="left">
-            Le but de cet exercice est d'effectué une validation dynamique du formulaire de creation du lama. Les objectifs sont : <br/>
-            - Lier les différentes variables définissant notre lama aux champs du formulaire<br/>
-            - Attribuer des règles aux champs du formulaire (nom !== ' ', taille age et poids > 0)<br/>
-            - Lier l'état du formulaire à une variable"<br/>
-            - Désactiver le bouton quand le formulaire n'est pas valide<br/>
-            Tips: l'attribut <span class="font-weight-bold">"rules"</span> permet de definir un tableau de règles que le champs devra suivre afin d'être jugé valide.
-            Tips: l'attribut <span class="font-weight-bold">"v-model"</span> sur un "v-form" permet de lier une variable de type boolean à l'état du formulaire.
+            <p class="mb-0">Le but de cet exercice est d'effectuer une validation dynamique du formulaire de création du lama. Les objectifs sont : </p>
+            <p class="mb-0">- Lier les différentes variables définissant votre lama aux champs du formulaire</p>
+            <p class="mb-0">- Attribuer ces règles aux champs du formulaire : </p>
+            <p class="mb-0 ml-6 font-weight-light font-italic">- le nom ne doit pas être vide</p>
+            <p class="mb-0 ml-6 font-weight-light font-italic">- l'age doit être renseigné et supérieur à 0</p>
+            <p class="mb-0 ml-6 font-weight-light font-italic">- la taille doit être supérieur à 0</p>
+            <p class="mb-0 ml-6 font-weight-light font-italic">- le poids doit être supérieur à 0</p>
+            <p class="mb-0">- Lier l'état du formulaire à une variable"</p>
+            <p class="mb-0">- Désactiver le bouton quand le formulaire n'est pas valide</p>
+            <p class="mb-0">Tips: l'attribut <span class="font-weight-bold">"rules"</span> permet de definir un tableau de règles que le champs devra suivre afin d'être jugé valide.</p>
+            <p class="mb-0">Tips: l'attribut <span class="font-weight-bold">"v-model"</span> sur un "v-form" permet de lier une variable de type boolean à l'état du formulaire.</p>
           </v-alert>
         </v-col>
       </v-row>
